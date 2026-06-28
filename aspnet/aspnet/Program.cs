@@ -1,7 +1,12 @@
+using aspnet.Models.EF;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<CoffeeContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CoffeeDb")));
 
 var app = builder.Build();
 
@@ -20,8 +25,13 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.MapAreaControllerRoute(
+    name: "Admin",
+    areaName: "Admin",
+    pattern: "Admin/{Controller=Home}/{action=Index}/{id?}"
+    );
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+ 
 app.Run();

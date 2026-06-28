@@ -5,7 +5,7 @@ using Core.Database.Interfaces;
 namespace Core.Database.Models
 {
     [Table("Article")]
-    internal class Article : IAuditable,  IMeta
+    public class Article : IAuditable,  IMeta
     {
         [Key]
 
